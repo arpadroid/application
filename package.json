@@ -1,0 +1,54 @@
+{
+    "name": "@arpadroid/application",
+    "version": "0.0.1",
+    "description": "Contains application services typical of any web based application",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "type": "module",
+    "types": "./dist/types.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "prepublish": "npm run build",
+        "build": "rollup -c",
+        "build:watch": "rollup -c -w",
+        "test": "jest",
+        "test:coverage": "jest --coverage",
+        "generate-docs": "jsdoc2md src/*.js > README.md"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/arpadroid/application.git"
+    },
+    "keywords": [
+        "javascript",
+        "application",
+        "services"
+    ],
+    "author": "Andres Vaquero @arpadroid <web.andresvaquero@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/arpadroid/application/issues"
+    },
+    "homepage": "https://github.com/arpadroid/application#readme",
+    "dependencies": {
+        "@arpadroid/tools": "file:../tools"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.23.9",
+        "@babel/plugin-syntax-import-assertions": "^7.23.3",
+        "@babel/preset-env": "^7.23.9",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-terser": "^0.4.4",
+        "babel-jest": "^29.7.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "jest-junit": "^16.0.0",
+        "jsdoc-to-markdown": "^8.0.1",
+        "jsdom": "^24.0.0",
+        "rollup": "^4.12.0",
+        "rollup-plugin-dts": "^6.1.0"
+    }
+}
