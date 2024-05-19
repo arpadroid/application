@@ -124,7 +124,7 @@ class ListFilter {
             return this.urlValue;
         }
         const savedValue = this.getSavedValue();
-        const isPopState = Context.Router.isPopState();
+        const isPopState = Context.Router?.isPopState();
         if (isURLFilter && typeof this.urlValue !== 'undefined') {
             value = this.urlValue;
         } else if (!isPopState && hasLocalStorage && typeof savedValue !== 'undefined') {

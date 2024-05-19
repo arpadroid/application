@@ -9,6 +9,9 @@ import Resource from '../resource/resource.js';
 import ListFilter from './listFilter.js';
 
 class ListResource extends Resource {
+    constructor(config = {}) {
+        super('', config);
+    }
     _initializeProperties(config = {}) {
         super._initializeProperties(config);
         this.items = [];
@@ -138,12 +141,12 @@ class ListResource extends Resource {
         };
     }
 
-    getItems(payload = this._payload) {
-        return payload?.results ?? [];
+    getItems() {
+        return this.items ?? [];
     }
 
     getTotalItems(payload = this._payload) {
-        return payload?.resultCount ?? this.getItems(payload).length;
+        return payload?.resultCount ?? this.getItems().length;
     }
 
     async _initializePayload(payload = {}, headers = {}) {
@@ -162,6 +165,7 @@ class ListResource extends Resource {
         }
         this.initializeSelectedItems();
         this.signal('ITEMS', this.items);
+        this.signal('ITEMS_UPDATED', this.items);
         return payload;
     }
 
@@ -205,12 +209,13 @@ class ListResource extends Resource {
      */
 
     setItems(items) {
-        this.items = items;
+        this.items = items.map(item => this.preProcessItem(item));
         this.signal('SET_ITEMS', this.items);
+        this.signal('ITEMS_UPDATED', this.items);
     }
 
     addItem(item = {}, sendUpdate = true, unshift = false) {
-        this.removeItem(item);
+        this.removeItem(item, false);
         this.preProcessItem(item);
         if (unshift) {
             this.items.unshift(item);
@@ -220,13 +225,29 @@ class ListResource extends Resource {
         this._config.totalItems++;
         if (sendUpdate) {
             this.signal('ADD_ITEM', item, unshift);
+            this.signal('ITEMS_UPDATED', this.items);
         }
+        return item;
+    }
+
+    registerItem(payload = {}, node) {
+        const { id } = payload;
+        if (!this.itemsById[id]) {
+            const item = this.addItem(payload, false);
+            item.node = node;
+            this.itemsById[item.id] = item;
+            payload.id = item.id;
+            return item;
+        }
+        this.itemsById[id].node = node;
+        return this.itemsById[id];
     }
 
     addItems(items, sendUpdate = true, unshift = false) {
         items.map(item => this.addItem(item, false, unshift));
         if (sendUpdate) {
-            this.signal('ADD_ITEMS', this.asset);
+            this.signal('ADD_ITEMS', items);
+            this.signal('ITEMS_UPDATED', this.items);
         }
     }
 
@@ -238,7 +259,8 @@ class ListResource extends Resource {
         if (typeof item[this.itemIdMap] !== 'undefined') {
             return item[this.itemIdMap];
         }
-        return JSON.stringify(item);
+        item[this.itemIdMap] = new Symbol('ITEM_ID');
+        return item[this.itemIdMap];
     }
 
     getNextItem(item = {}) {
@@ -261,6 +283,17 @@ class ListResource extends Resource {
         }
         if (sendUpdate) {
             this.signal('REMOVE_ITEM', item, index);
+            this.signal('ITEMS_UPDATED', this.items);
+        }
+    }
+
+    removeItems(sendUpdate = true) {
+        this.items = [];
+        this.itemsById = {};
+        this._config.totalItems = 0;
+        if (sendUpdate) {
+            this.signal('REMOVE_ITEMS');
+            this.signal('ITEMS_UPDATED', this.items);
         }
     }
 
@@ -279,7 +312,9 @@ class ListResource extends Resource {
         if (typeof item[this.itemIdMap] === 'undefined') {
             return -1;
         }
-        return this.items.findIndex($item => $item[this.itemIdMap] === item[this.itemIdMap]);
+        return this.items.findIndex($item => {
+            return $item[this.itemIdMap] === item[this.itemIdMap];
+        });
     }
 
     preProcessItems(items = []) {
@@ -288,6 +323,8 @@ class ListResource extends Resource {
     }
 
     preProcessItem(item = {}) {
+        const id = item[this.itemIdMap] ?? Symbol('ITEM_ID');
+        item[this.itemIdMap] = id;
         this.itemsById[item[this.itemIdMap]] = item;
         return item;
     }

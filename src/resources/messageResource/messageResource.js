@@ -61,7 +61,9 @@ class MessageResource {
      */
     addMessage(message = {}, sendUpdate = true) {
         message.id = Symbol('UID');
-        message.type = message.type ?? 'info';
+        if (typeof message.type === 'undefined') {
+            message.type = 'info';
+        }
         message.resource = this;
         this._messagesById[message.id] = message;
         this._messages.push(message);
