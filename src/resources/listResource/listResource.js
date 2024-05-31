@@ -9,6 +9,7 @@ import Resource from '../resource/resource.js';
 import ListFilter from './listFilter.js';
 
 class ListResource extends Resource {
+    // #region INITIALIZATION
     constructor(config = {}) {
         super('', config);
     }
@@ -37,6 +38,14 @@ class ListResource extends Resource {
             hasSelectionSave: false
         };
     }
+
+    // #endregion
+
+    // #region ACCESSORS
+
+    setContext() {}
+
+    getContext() {}
 
     isCollapsed() {
         return this._config.isCollapsed;
@@ -122,9 +131,9 @@ class ListResource extends Resource {
         return payload?.isActive ?? this.getFilter(filterID)?.isActive();
     }
 
-    /**
-     * RESOURCE API.
-     */
+    // #endregion
+
+    // #region RESOURCE API.
 
     fetch(...args) {
         const rv = super.fetch(...args);
@@ -139,6 +148,16 @@ class ListResource extends Resource {
             ...this.resourceParams,
             ...this.getFilterQueryParams()
         };
+    }
+
+    setIsProcessing(value) {
+        this.isProcessing = value;
+        this.signal('PROCESSING', value);
+        return this;
+    }
+
+    search(value) {
+        return this.fetch({ search: value });
     }
 
     getItems() {
@@ -169,9 +188,9 @@ class ListResource extends Resource {
         return payload;
     }
 
-    /**
-     * LIST API.
-     */
+    // #endregion
+
+    // #region LIST API
 
     openList() {
         if (!this.items) {
@@ -204,9 +223,9 @@ class ListResource extends Resource {
         return this;
     }
 
-    /**
-     * ITEM API.
-     */
+    // #endregion
+
+    // #region ITEM API
 
     setItems(items) {
         this.items = items.map(item => this.preProcessItem(item));
@@ -329,13 +348,9 @@ class ListResource extends Resource {
         return item;
     }
 
-    /**
-     * FILTERS API.
-     */
+    // #endregion
 
-    setContext() {}
-
-    getContext() {}
+    // #region FILTERS API.
 
     _setupFilters() {
         this.paginate();
@@ -543,9 +558,9 @@ class ListResource extends Resource {
         });
     }
 
-    /**
-     * SELECTION API.
-     */
+    // #endregion
+
+    // #region SELECTION API.
 
     initializeSelectedItems() {
         this.selectedItems = this.getSelectedItems();
@@ -718,16 +733,6 @@ class ListResource extends Resource {
         return this;
     }
 
-    setIsProcessing(value) {
-        this.isProcessing = value;
-        this.signal('PROCESSING', value);
-        return this;
-    }
-
-    search(value) {
-        return this.fetch({ search: value });
-    }
-
     filterBySelections() {
         const selected = this.getSelectedItems();
         this._initializePayload({
@@ -738,6 +743,8 @@ class ListResource extends Resource {
         });
         this.update();
     }
+
+    // #endregion
 }
 
 export default ListResource;
