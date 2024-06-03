@@ -120,11 +120,11 @@ class Router {
             if (!route?.componentInstance && route?.component) {
                 this._instantiateRoute(route);
             }
-            const payload = { route, event, previousRoute: this._previousRoute, config };
-            this.signal('ROUTE_CHANGE', payload);
-            this._onRouteChanged(payload);
-            requestAnimationFrame(() => this.signal('ROUTE_CHANGED', payload));
         }
+        const payload = { route, event, previousRoute: this._previousRoute, config };
+        this.signal('ROUTE_CHANGE', payload);
+        this._onRouteChanged(payload);
+        requestAnimationFrame(() => this.signal('ROUTE_CHANGED', payload));
     }
 
     /**
@@ -489,8 +489,10 @@ class Router {
         requestAnimationFrame(() => {
             const url = editURL(_url, params, encode);
             const route = this._findRoute(url);
-            route.isPopState = false;
-            route.url = url;
+            if (route) {
+                route.isPopState = false;
+                route.url = url;
+            }
             const event = window.history.pushState(url, null, url);
             this._onRouteChange(route, event, config);
         });

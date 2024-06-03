@@ -1,6 +1,7 @@
 /**
  * @typedef {import('./listFilterInterface').ListFilterInterface} ListFilterInterface
  * @typedef {import('./listResourceInterface').ListResourceInterface} ListResourceInterface
+ * @typedef {import('../../../../forms/src/fields/optionsField/fieldOption/fieldOptionInterface.js').FieldOptionInterface} FieldOptionInterface
  */
 
 import { Context } from '../../services/applicationService/applicationService.js';
@@ -359,7 +360,7 @@ class ListResource extends Resource {
                 defaultValue: 'false',
                 hasLocalStorage: true
             });
-            this._confog.isCollapsed = this.toggleListFilter.getValue() === 'false';
+            this._config.isCollapsed = this.toggleListFilter.getValue() === 'false';
         }
     }
 
@@ -421,6 +422,37 @@ class ListResource extends Resource {
         });
     }
 
+    addSortFilter(config = {}) {
+        this.sortFilter = this.addFilter(`${this.id}-sort`, {
+            defaultValue: '',
+            alias: `${this.id}-sortBy`,
+            urlParamName: `${this.id}-sortBy`,
+            // isRequestFilter: true,
+            isURLFilter: true,
+            hasLocalStorage: true,
+            ...config
+        });
+        return this.sortFilter;
+    }
+
+    getSortFilter() {
+        return this.sortFilter ?? this.addSortFilter();
+    }
+
+    addSortDirFilter(config = {}) {
+        this.sortDirFilter = this.addFilter(`${this.id}-sortDir`, {
+            isRequestFilter: true,
+            isURLFilter: true,
+            defaultValue: 'desc',
+            ...config
+        });
+        return this.sortDirFilter;
+    }
+
+    getSortDirFilter() {
+        return this.sortDirFilter ?? this.addSortDirFilter();
+    }
+
     addViewFilter(config = {}) {
         this.viewFilter = this.addFilter(`${this.id}-view`, {
             defaultValue: 'list',
@@ -431,7 +463,11 @@ class ListResource extends Resource {
         return this.viewFilter;
     }
 
-    getSearchFilter() {
+    getViewFilter() {
+        return this.viewFilter ?? this.addViewFilter();
+    }
+
+    addSearchFilter() {
         if (this.searchFilter) {
             return this.searchFilter;
         }
@@ -440,6 +476,10 @@ class ListResource extends Resource {
             isRequestFilter: true
         });
         return this.searchFilter;
+    }
+
+    getSearchFilter() {
+        return this.searchFilter ?? this.addSearchFilter();
     }
 
     hasURLFilter() {
