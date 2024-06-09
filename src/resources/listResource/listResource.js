@@ -36,7 +36,9 @@ class ListResource extends Resource {
             isCollapsible: false,
             isCollapsed: false,
             hasToggleSave: false,
-            hasSelectionSave: false
+            hasSelectionSave: false,
+            preProcessItem: undefined,
+            preProcessNode: undefined
         };
     }
 
@@ -105,6 +107,14 @@ class ListResource extends Resource {
 
     hasNoSearchResults() {
         return this._payload.output?.find(item => item.code === 'no-results') !== undefined;
+    }
+
+    setPreProcessItem(callback) {
+        this._config.preProcessItem = callback;
+    }
+
+    setPreProcessNode(callback) {
+        this._config.preProcessNode = callback;
     }
 
     /**
@@ -252,6 +262,14 @@ class ListResource extends Resource {
 
     registerItem(payload = {}, node) {
         const { id } = payload;
+        const _item = this.items.find(item => item.node === node);
+        if (_item) {
+            return _item;
+        }
+        const { preProcessNode } = this._config;
+        if (typeof preProcessNode === 'function') {
+            preProcessNode(node);
+        }
         if (!this.itemsById[id]) {
             const item = this.addItem(payload, false);
             item.node = node;
@@ -259,6 +277,7 @@ class ListResource extends Resource {
             payload.id = item.id;
             return item;
         }
+        
         this.itemsById[id].node = node;
         return this.itemsById[id];
     }
@@ -343,9 +362,14 @@ class ListResource extends Resource {
     }
 
     preProcessItem(item = {}) {
+        const { preProcessItem } = this._config;
         const id = item[this.itemIdMap] ?? Symbol('ITEM_ID');
         item[this.itemIdMap] = id;
         this.itemsById[item[this.itemIdMap]] = item;
+        if (typeof preProcessItem === 'function') {
+            item = preProcessItem(item);
+        }
+
         return item;
     }
 
@@ -463,8 +487,8 @@ class ListResource extends Resource {
         return this.viewFilter;
     }
 
-    getViewFilter() {
-        return this.viewFilter ?? this.addViewFilter();
+    getViewFilter(config) {
+        return this.viewFilter ?? this.addViewFilter(config);
     }
 
     addSearchFilter() {
