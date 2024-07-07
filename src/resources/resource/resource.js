@@ -114,6 +114,14 @@ class Resource {
         });
     }
 
+    /**
+     * Sets the fetch function to be used by the resource.
+     * @param {Promise<any>} fetch
+     */
+    setFetch(fetch) {
+        this._config.fetch = fetch;
+    }
+
     validateResourcePayload() {
         return true;
     }

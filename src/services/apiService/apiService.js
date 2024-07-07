@@ -44,7 +44,7 @@ class APIService {
                 delete params[key];
             }
         }
-        return editURL.edit(url, params);
+        return editURL(url, params);
     }
 
     /**
