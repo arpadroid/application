@@ -60,7 +60,7 @@ class MessageResource {
      * @returns {MessageInterface}
      */
     addMessage(message = {}, sendUpdate = true) {
-        message.id = Symbol('UID');
+        message.id = message?.node?.id || message?.id || Symbol('UID');
         if (typeof message.type === 'undefined') {
             message.type = 'info';
         }
@@ -73,11 +73,21 @@ class MessageResource {
         return this._messagesById[message.id];
     }
 
+    updateMessage(id, config) {
+        const message = this._messagesById[id];
+        if (message) {
+            mergeObjects(message, config);
+            message?.node?.setConfig(message);
+            message?.reRender();
+        }
+    }
+
     registerMessage(config = {}, node) {
-        if (!this._messagesById[config?.id]) {
+        const id = node?.id || config?.id;
+        if (!this._messagesById[id]) {
             return this.addMessage({...config, node}, false);
         }
-        return this._messagesById[config?.id];
+        return this._messagesById[id];
     }
 
     /**
