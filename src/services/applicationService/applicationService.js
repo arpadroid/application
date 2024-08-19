@@ -4,12 +4,11 @@
  */
 import { ObserverTool, mergeObjects } from '@arpadroid/tools';
 import Router from '../router/router.js';
-import Messages from '../../resources/messageResource/messageResource.js';
+import MessageResource from '@arpadroid/resources/src/resources/messageResource/messageResource.js';
 import CONSTANTS from '../../include/constants.js';
 // import AccessibilityService from '../../../../services/accessibility/accessibilityService.js';
 // import I18n from '../../../../services/i18n/i18n.js';
 // import UIService from '../../../../services/ui-service/UIService.js';;
-// import Messenger from '../../../messages/contexts/messenger.js';
 // import DialogContext from '../../../dialog/contexts/dialogContext.js';
 // import AppUserResource from '../../../user/resources/appUserResource/appUserResource.js';
 // import KeyboardTool from '../../../../utils/keyboardTool.js';
@@ -59,7 +58,7 @@ class ApplicationService {
                 // I18n,
                 // DialogContext,
                 Router,
-                Messages
+                Messages: MessageResource
                 // AccessibilityService,
                 // UIService,
                 // AppUserResource
