@@ -1,4 +1,4 @@
-import { MessageResource } from '@arpadroid/resources/src';
+// import { MessageResource } from '@arpadroid/resources/src';
 import Router from '../router/router';
 
 export interface ApplicationInterface {
@@ -16,7 +16,7 @@ export interface ContextInterface {
     // Application?: Application;
     // Accessibility?: AccessibilityService;
     Router?: Router;
-    Messages?: MessageResource;
+   //  Messages?: MessageResource;
     // Dialogs?: DialogContext;
     // User?: AppUserResource;
     // UIService?: UIService;
@@ -30,5 +30,5 @@ export interface ApplicationServicesInterface {
     // UIService?: UIService;
     // DialogContext?: DialogContext;
     // AppUserResource?: AppUserResource;
-    Messages: MessageResource;
+    // Messages: MessageResource;
 }
