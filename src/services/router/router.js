@@ -1,6 +1,6 @@
 import APIService from '../apiService/apiService.js';
 // import { Context } from '../applicationService/applicationService.js';
-import { sanitizeURL, ObserverTool, mergeObjects } from '@arpadroid/tools';
+import { sanitizeURL, ObserverTool, mergeObjects, clearLazyQueue } from '@arpadroid/tools';
 import { matchPath, matchPaths, editURL, getPathParts, getURLPath } from '@arpadroid/tools';
 /**
  * @typedef {import ('../../types').RouterInterface} RouterInterface
@@ -112,6 +112,7 @@ class Router {
 
     async _onRouteChange(route, event, config = {}) {
         return new Promise(resolve => {
+            clearLazyQueue();
             if (route) {
                 if (!(event instanceof PopStateEvent)) {
                     this._addItemToHistory(route);
