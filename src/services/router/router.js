@@ -40,6 +40,10 @@ class Router {
     /** @type {(property: string, callback: () => unknown) => () => void} listen */
     listen;
 
+    //////////////////////////
+    // #region Initialization
+    //////////////////////////
+
     /**
      * Creates an instance of Router.
      * @param {RouterInterface} config - The component configuration.
@@ -77,6 +81,12 @@ class Router {
         document.addEventListener('click', this._onNavigate);
         window.addEventListener('popstate', this._onPopState);
     }
+
+    // #endregion Initialization
+
+    //////////////////////////
+    // #region Event Handlers
+    //////////////////////////
 
     _onPopState(event) {
         const route = this._findRoute(window.location.href);
@@ -132,6 +142,30 @@ class Router {
             });
         });
     }
+
+    _onRouteChanged({ route, previousRoute, config = {} }) {
+        const prevComponent = previousRoute?.componentInstance;
+        const newComponent = route?.componentInstance;
+        const refreshAll = Boolean(config?.refreshAll);
+        // Check if the route is the same as the previous route
+        if (newComponent) {
+            newComponent.refreshAll = refreshAll;
+        }
+        if (typeof newComponent?.initialize === 'function') {
+            newComponent?.initialize();
+        }
+        if (!refreshAll && prevComponent === newComponent) {
+            return;
+        }
+        this._replacePage(newComponent);
+        prevComponent?.destroy();
+    }
+
+    // #endregion Event Handlers
+
+    ///////////////////
+    // #region Routing
+    ///////////////////
 
     /**
      * Pre-processes the route before navigation occurs.
@@ -220,24 +254,6 @@ class Router {
         route.componentInstance = new route.component(config);
     }
 
-    _onRouteChanged({ route, previousRoute, config = {} }) {
-        const prevComponent = previousRoute?.componentInstance;
-        const newComponent = route?.componentInstance;
-        const refreshAll = Boolean(config?.refreshAll);
-        // Check if the route is the same as the previous route
-        if (newComponent) {
-            newComponent.refreshAll = refreshAll;
-        }
-        if (typeof newComponent?.initialize === 'function') {
-            newComponent?.initialize();
-        }
-        if (!refreshAll && prevComponent === newComponent) {
-            return;
-        }
-        this._replacePage(newComponent);
-        prevComponent?.destroy();
-    }
-
     /**
      * Exchanges the current page with the new one.
      * @param {any} newPage
@@ -250,6 +266,8 @@ class Router {
             this.routeNode = content;
         }
     }
+
+    // #endregion Routing
 
     _addItemToHistory(route) {
         if (route.url) {

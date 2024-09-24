@@ -5,10 +5,10 @@
 import { ObserverTool, mergeObjects } from '@arpadroid/tools';
 import Router from '../router/router.js';
 import CONSTANTS from '../../include/constants.js';
+import UIService from '../uiService/uiService.js';
 // import { MessageResource as Messages } from '@arpadroid/resources';
 // import AccessibilityService from '../../../../services/accessibility/accessibilityService.js';
 // import I18n from '../../../../services/i18n/i18n.js';
-// import UIService from '../../../../services/ui-service/UIService.js';;
 // import DialogContext from '../../../dialog/contexts/dialogContext.js';
 // import AppUserResource from '../../../user/resources/appUserResource/appUserResource.js';
 // import KeyboardTool from '../../../../utils/keyboardTool.js';
@@ -57,6 +57,7 @@ class ApplicationService {
             services: {
                 // I18n,
                 // DialogContext,
+                UIService,
                 Router,
                 Messages: undefined
                 // AccessibilityService,
@@ -152,8 +153,9 @@ class ApplicationService {
     }
 
     _initializeUIService() {
-        if (this._config?.services?.UIService) {
-            Context.UIService = new this._config.services.UIService();
+        const { UIService } = this._config.services;
+        if (UIService) {
+            Context.UIService = new UIService();
             this.uiService = Context.UIService;
         }
     }
