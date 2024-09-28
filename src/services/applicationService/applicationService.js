@@ -32,7 +32,7 @@ class ApplicationService {
     /** @type {(property: string, value: unknown) => void} signal */
     signal;
     /** @type {(property: string, callback: () => unknown) => () => void} listen */
-    listen;
+    on;
 
     constructor(config = {}) {
         ObserverTool.mixin(this);

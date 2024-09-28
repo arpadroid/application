@@ -134,10 +134,10 @@ class Router {
                 }
             }
             const payload = { route, event, previousRoute: this._previousRoute, config };
-            this.signal('ROUTE_CHANGE', payload);
+            this.signal('route_change', payload);
             this._onRouteChanged(payload);
             requestAnimationFrame(() => {
-                this.signal('ROUTE_CHANGED', payload);
+                this.signal('route_changed', payload);
                 resolve(payload);
             });
         });
