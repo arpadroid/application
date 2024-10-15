@@ -89,7 +89,7 @@ class Router {
     //////////////////////////
 
     _onPopState(event) {
-        const route = this._findRoute(window.location.href);
+        const route = this._findRoute(window.location.href) || {};
         route.url = window.location.href;
         route.isPopState = true;
         if (route) {
@@ -136,8 +136,10 @@ class Router {
             const payload = { route, event, previousRoute: this._previousRoute, config };
             this.signal('route_change', payload);
             this._onRouteChanged(payload);
-            this.signal('route_changed', payload);
-            resolve(payload);
+            requestAnimationFrame(() => {
+                this.signal('route_changed', payload);
+                resolve(payload);
+            });
         });
     }
 
