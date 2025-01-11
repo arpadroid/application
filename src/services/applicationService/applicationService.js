@@ -1,11 +1,10 @@
 /**
- * @typedef {import('./applicationServiceInterface.js').ApplicationInterface} ApplicationInterface
- * @typedef {import('./applicationServiceInterface.js').ContextInterface} ContextInterface
+ * @typedef {import('./applicationServiceInterface').ApplicationInterface} ApplicationInterface
+ * @typedef {import('./applicationServiceInterface').ContextInterface} ContextInterface
  */
 import { ObserverTool, mergeObjects } from '@arpadroid/tools';
-import Router from '../router/router.js';
+import { Router, UIService } from '@arpadroid/services';
 import CONSTANTS from '../../include/constants.js';
-import UIService from '../uiService/uiService.js';
 // import { MessageResource as Messages } from '@arpadroid/resources';
 // import AccessibilityService from '../../../../services/accessibility/accessibilityService.js';
 // import I18n from '../../../../services/i18n/i18n.js';

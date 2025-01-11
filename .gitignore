@@ -2,3 +2,4 @@ bundle-stats.html
 node_modules/
 dist/
 junit.xml
+src/i18n/*

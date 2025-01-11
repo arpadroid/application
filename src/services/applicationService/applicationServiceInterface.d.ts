@@ -1,5 +1,5 @@
 // import { MessageResource } from '@arpadroid/resources/src';
-import Router from '../router/router';
+import { Router } from '@arpadroid/services';
 
 export interface ApplicationInterface {
     basePath?: string;

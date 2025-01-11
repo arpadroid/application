@@ -10,8 +10,9 @@
     "scripts": {
         "build": "node ./node_modules/@arpadroid/arpadroid/scripts/build-project.mjs --project=application --minify",
         "prepublish": "npm run build",
-        "test": "jest",
+        "test": "node ./node_modules/@arpadroid/arpadroid/scripts/test-project.mjs --project=application --storybook --jest --port=6016",
         "test:coverage": "jest --coverage",
+        "storybook": "npm run build -- --storybook=6016 --watch",
         "generate-docs": "jsdoc2md src/*.js > README.md"
     },
     "engines": {
@@ -34,7 +35,12 @@
     "homepage": "https://github.com/arpadroid/application#readme",
     "peerDependencies": {
         "@arpadroid/tools": "file:../tools",
-        "@arpadroid/resources": "file:../resources"
+        "@arpadroid/ui": "file:../ui",
+        "@arpadroid/services": "file:../services",
+        "@arpadroid/resources": "file:../resources",
+        "@arpadroid/navigation": "file:../navigation",
+        "@arpadroid/messages": "file:../messages",
+        "@arpadroid/i18n": "file:../i18n"
     },
     "devDependencies": {
         "@arpadroid/arpadroid": "file:../arpadroid",
