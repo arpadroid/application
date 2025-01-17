@@ -17,7 +17,7 @@ class PageTitle extends PageElement {
 
     renderIcon() {
         if (!this.hasContent('icon')) return '';
-        return html`<arpa-icon class="pageTitle__icon">{icon}</arpa-icon>`;
+        return html`<arpa-icon class="pageTitle__icon">${this.page.getProperty('title-icon')}</arpa-icon>`;
     }
 
     renderTitle(title = this.page.getProperty('title') || '') {
@@ -27,7 +27,9 @@ class PageTitle extends PageElement {
 
     renderIconRight() {
         if (!this.hasContent('iconRight')) return '';
-        return html`<arpa-icon class="pageTitle__iconRight">{iconRight}</arpa-icon>`;
+        return html`<arpa-icon class="pageTitle__iconRight"
+            >${this.page.getProperty('title-icon-right')}</arpa-icon
+        >`;
     }
 }
 

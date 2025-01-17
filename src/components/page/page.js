@@ -12,10 +12,11 @@ class Page extends ArpaElement {
     getTemplate() {
         return html`<div class="page__layout" zone="layout">
             <header class="page__header" zone="header">
-                {logo} {title} {primaryNav} {headerRhs} {mobileNav}
+                {logo} {primaryNav} {headerRhs} {mobileNav}
             </header>
             {messages}
-            <div class="page__contentFrame" zone="content-frame">{lhsNav} {content} {rhsNav}</div>
+            <div class="page__contentHeader">{title}</div>
+            <div class="page__content" zone="content-frame">{lhsNav} {content} {rhsNav}</div>
             <footer class="page__footer" zone="footer"></footer>
         </div>`;
     }
