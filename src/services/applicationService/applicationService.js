@@ -2,7 +2,7 @@
  * @typedef {import('./applicationServiceInterface').ApplicationInterface} ApplicationInterface
  * @typedef {import('./applicationServiceInterface').ContextInterface} ContextInterface
  */
-import { ObserverTool, mergeObjects } from '@arpadroid/tools';
+import { observerMixin, mergeObjects } from '@arpadroid/tools';
 import { Router, UIService } from '@arpadroid/services';
 import CONSTANTS from '../../include/constants.js';
 // import { MessageResource as Messages } from '@arpadroid/resources';
@@ -34,7 +34,7 @@ class ApplicationService {
     on;
 
     constructor(config = {}) {
-        ObserverTool.mixin(this);
+        observerMixin(this);
         Context.Application = this;
         this.setConfig(config);
         this._initialize();
