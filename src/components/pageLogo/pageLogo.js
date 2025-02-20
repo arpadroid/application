@@ -1,4 +1,5 @@
-import PageElement from '../pageElement/pageElement';
+import { defineCustomElement } from '@arpadroid/tools';
+import PageElement from '../pageElement/pageElement.js';
 const html = String.raw;
 class PageLogo extends PageElement {
     getTemplate() {
@@ -11,6 +12,6 @@ class PageLogo extends PageElement {
     }
 }
 
-customElements.define('page-logo', PageLogo);
+defineCustomElement('page-logo', PageLogo);
 
 export default PageLogo;

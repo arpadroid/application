@@ -1,4 +1,5 @@
 import { ArpaElement } from '@arpadroid/ui';
+import { defineCustomElement } from '@arpadroid/tools';
 
 const html = String.raw;
 class Page extends ArpaElement {
@@ -90,6 +91,7 @@ class Page extends ArpaElement {
     }
 }
 
-customElements.define('arpa-page', Page);
+defineCustomElement('arpa-page', Page);
+
 
 export default Page;

@@ -1,4 +1,5 @@
-import PageElement from '../pageElement/pageElement';
+import { defineCustomElement } from '@arpadroid/tools';
+import PageElement from '../pageElement/pageElement.js';
 
 const html = String.raw;
 
@@ -33,6 +34,6 @@ class PageTitle extends PageElement {
     }
 }
 
-customElements.define('page-title', PageTitle);
+defineCustomElement('page-title', PageTitle);
 
 export default PageTitle;

@@ -1,4 +1,5 @@
-import PageElement from '../pageElement/pageElement';
+import { defineCustomElement } from '@arpadroid/tools';
+import PageElement from '../pageElement/pageElement.js';
 
 const html = String.raw;
 
@@ -31,6 +32,6 @@ class PageContent extends PageElement {
     }
 }
 
-customElements.define('page-content', PageContent);
+defineCustomElement('page-content', PageContent);
 
 export default PageContent;
