@@ -1,4 +1,5 @@
 const config = {
-    deps: ['resources']
+    deps: ['resources'],
+    buildTypes: false
 };
 export default config;
