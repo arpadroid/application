@@ -1,7 +1,9 @@
 /**
  * @typedef {import('./page.js').default} Page
+ * @typedef {import('@arpadroid/module/node_modules/@storybook/types').StepFunction} StepFunction
+ * @typedef {import('./page.types.js').PageConfigType} PageConfigType
  */
-import { attrString } from '@arpadroid/tools';
+import { attrString } from '@arpadroid/tools'; // @ts-ignore
 import { within } from '@storybook/test';
 const html = String.raw;
 
@@ -35,24 +37,33 @@ export const Default = {
         id: 'page'
         // title: 'Page title'
     },
+    /**
+     * Setup the test environment.
+     * @param {HTMLElement} canvasElement
+     * @returns {Promise<{canvas: any, pageNode: any}>} The canvas and page node.
+     */
     playSetup: async canvasElement => {
         await customElements.whenDefined('arpa-page');
         const canvas = within(canvasElement);
+        /** @type {Page | null} */
         const pageNode = canvasElement.querySelector('arpa-page');
-        await pageNode.promise;
+        pageNode?.promise && (await pageNode?.promise);
         return { canvas, pageNode };
     },
+    /**
+     * Plays the test scenario.
+     * @param {{ canvasElement: HTMLElement, step: StepFunction, args: Record<string, any> }} options
+     * @returns {Promise<void>}
+     */
     play: async ({ canvasElement }) => {
         await Default.playSetup(canvasElement);
     },
+    /**
+     * Renders the page component.
+     * @param {PageConfigType} args
+     * @returns {string}
+     */
     render: args => {
-        // Home
-        // About
-        // Services
-        // Blog
-        // Contact
-        // FAQ
-
         return html`
             <arpa-page ${attrString(args)}>
                 <zone name="logo">Logo</zone>

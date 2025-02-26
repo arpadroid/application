@@ -1,75 +1,70 @@
 /**
- * @typedef {import('./applicationServiceInterface').ApplicationInterface} ApplicationInterface
- * @typedef {import('./applicationServiceInterface').ContextInterface} ContextInterface
+ * @typedef {import('./applicationService.types.js').ApplicationConfigType} ApplicationConfigType
+ * @typedef {import('./applicationService.types.js').ApplicationServiceType} ApplicationServiceType
+ * @typedef {import('./applicationService.types.js').ContextInterface} ContextInterface
+ * @typedef {import('./applicationService.types.js').SettledResultType<any>} SettledResultType
  */
-import { observerMixin, mergeObjects } from '@arpadroid/tools';
+import { observerMixin, mergeObjects, dummySignal, dummyListener, renderNode } from '@arpadroid/tools';
 import { Router, UIService } from '@arpadroid/services';
+import { I18n } from '@arpadroid/i18n';
+import { MessageResource as Messages } from '@arpadroid/resources';
 import CONSTANTS from '../../include/constants.js';
-// import { MessageResource as Messages } from '@arpadroid/resources';
-// import AccessibilityService from '../../../../services/accessibility/accessibilityService.js';
-// import I18n from '../../../../services/i18n/i18n.js';
-// import DialogContext from '../../../dialog/contexts/dialogContext.js';
 // import AppUserResource from '../../../user/resources/appUserResource/appUserResource.js';
-// import KeyboardTool from '../../../../utils/keyboardTool.js';
 // import NotFoundPage from '../../pages/notFoundPage/notFoundPage.js';
-// import UserService from '../../../user/services/userService.js';
 // import PageAdminService from '../../../page/services/pageAdminService.js';
 
 /** @type {ContextInterface} */
 export const Context = {};
-
+const html = String.raw;
 class ApplicationService {
-    /** @type {ApplicationInterface} _config - Main configuration. */
-    _config;
-    /** @type {ApplicationInterface} _defaultConfig - Default configuration. */
+    /** @type {ApplicationConfigType} _config - Main configuration. */ // @ts-ignore
+    _config = this._config;
+    /** @type {ApplicationConfigType} _defaultConfig - Default configuration. */
     _defaultConfig = {};
-    /** @type {Promise<Response>} _promise - App promise. */
+    /** @type {Promise<SettledResultType[]> | undefined} _promise - App promise. */
     _promise;
     // /** @type {AppUserResource} */
-    user;
-
-    /** @type {(property: string, value: unknown) => void} signal */
-    signal;
-    /** @type {(property: string, callback: () => unknown) => () => void} listen */
-    on;
+    // user;
 
     constructor(config = {}) {
+        this.signal = dummySignal;
+        this.on = dummyListener;
         observerMixin(this);
-        Context.Application = this;
+        Context.application = this;
         this.setConfig(config);
         this._initialize();
     }
 
     /**
      * Returns the default config.
-     * @returns {ApplicationInterface}
+     * @returns {ApplicationConfigType}
      */
     getDefaultConfig() {
         return {
             id: 'application',
             basePath: '/',
-            MODE: 'development',
+            mode: 'development',
             promises: [],
             container: document.body,
             appComponent: 'app-component',
             fetchDbRoutes: true,
             services: {
-                // I18n,
-                // DialogContext,
-                UIService,
-                Router,
-                Messages: undefined
-                // AccessibilityService,
-                // UIService,
+                i18n: I18n,
+                uiService: UIService,
+                router: Router,
+                messages: Messages
                 // AppUserResource
             }
         };
     }
 
+    /**
+     * Sets the configuration.
+     * @param {ApplicationConfigType} config - Configuration.
+     */
     setConfig(config) {
-        /** @type {ApplicationInterface} this._config */
         this._config = mergeObjects(this.getDefaultConfig(), config);
-        CONSTANTS.MODE = this._config.MODE;
+        CONSTANTS.MODE = this._config.mode || 'development';
     }
 
     /**
@@ -78,14 +73,14 @@ class ApplicationService {
     _initialize() {
         this._initializeServices();
         const { id, appComponent } = this._config;
-        this.appComponent = document.createElement(appComponent, { id });
+        this.appComponent = renderNode(html`<${appComponent} id=${id}></${appComponent}>`);
     }
 
     initialize() {
-        this.router.initialize();
+        Context.router?.initialize();
         this._render();
         this._promise = this.load()
-            .then(response => {
+            ?.then(response => {
                 requestAnimationFrame(() => this.signal('LOAD_COMPLETE', response));
                 return Promise.resolve(response);
             })
@@ -97,78 +92,44 @@ class ApplicationService {
     }
 
     _render() {
-        const node = this.appComponent.render();
-        this._config.container.appendChild(node);
+        const container = this._config.container || document.body;
+        container.appendChild(this.appComponent);
     }
 
     _initializeServices() {
-        // Context.KeyboardTool = new KeyboardTool();
-        this._initializeUser();
-        this._initializeI18n();
-        this._initializeRouter();
-        this._initializeAccessibility();
-        this._initializeUIService();
-        this._initializeMessages();
-        this._initializeDialogContext();
+        this.initializeService('user');
+        this.initializeService('i18n');
+        this.initializeService('router', { basePath: '/' });
+        this.initializeService('uiService');
+        this.initializeService('messages');
     }
 
-    _initializeUser() {
-        if (this._config?.services?.AppUserResource) {
-            Context.User = new this._config.services.AppUserResource();
-            this.user = Context.User;
-        }
-    }
-
-    _initializeI18n() {
-        if (this._config?.services?.I18n) {
-            Context.I18n = new this._config.services.I18n({
-                context: Context
-            });
-            this.i18n = Context.I18n;
-        }
-    }
-
-    _initializeAccessibility() {
-        if (this._config.MODE === 'development' && this._config?.services?.AccessibilityService) {
-            Context.Accessibility = new this._config.services.AccessibilityService();
-            this.accessibilityService = Context.Accessibility;
-        }
-    }
-
-    _initializeRouter() {
-        if (this._config?.services?.Router) {
-            Context.Router = new this._config.services.Router({
-                basePath: '/',
-                context: Context
-            });
-            this.router = Context.Router;
-        }
-    }
-
-    _initializeDialogContext() {
-        if (this._config?.services?.DialogContext) {
-            Context.Dialogs = new this._config.services.DialogContext();
-        }
-    }
-
-    _initializeUIService() {
-        const { UIService } = this._config.services;
-        if (UIService) {
-            Context.UIService = new UIService();
-            this.uiService = Context.UIService;
-        }
-    }
-
-    _initializeMessages() {
-        if (this._config?.services?.Messages) {
-            Context.Messages = new this._config.services.Messages();
-            this.messages = Context.Messages;
+    /**
+     * Initializes a service.
+     * @param {ApplicationServiceType} serviceName
+     * @param {Record<string, unknown>} [config]
+     * @returns {any}
+     */
+    initializeService(serviceName, config) {
+        const service = this.getServiceClass(serviceName);
+        if (service) {
+            Context[serviceName] = new service(config);
+            return Context[serviceName];
         }
     }
 
     /**
+     * Returns a service class.
+     * @param {ApplicationServiceType} service - Service name.
+     * @returns {any}
+     */
+    getServiceClass(service) {
+        return this._config?.services?.[service];
+    }
+
+    /**
      * Loads Resources.
-     * @returns {Promise<Response>}
+     * @returns {Promise<SettledResultType[]> | undefined} - Promise.
      */
     load() {
         const promises = this._getPromises();
@@ -178,19 +139,24 @@ class ApplicationService {
 
     _getPromises() {
         const { fetchDbRoutes } = this._config;
-        const promises = [...this._config.promises, this.appComponent._config.load];
-        if (this?.user?.promise) {
-            promises.push(this.user.promise);
+        const promises = [...(this._config.promises || []), this.appComponent._config.load];
+        if (Context?.user?.promise) {
+            promises.push(Context.user.promise);
         }
-        if (fetchDbRoutes) {
-            promises.push(this.router.fetchRoutes());
+        if (Context.router && fetchDbRoutes) {
+            promises.push(Context.router.fetchRoutes());
         }
         return promises;
     }
 
+    /**
+     * Adds default routes.
+     * @param {ApplicationConfigType} config - Configuration.
+     * @returns {Promise<void>} - Promise.
+     */
     async addDefaultRoutes(config) {
         console.log('addDefaultRoutes', config);
-        const promise = Context.User?.onLoad() ?? Promise.resolve();
+        const promise = Context.user?.onLoad() ?? Promise.resolve();
         await promise;
         // this.router.addRoute({ path: '/404', component: NotFoundPage });
         // UserService.addUserRoutes(this);

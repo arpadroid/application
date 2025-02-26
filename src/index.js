@@ -1,4 +1,5 @@
 export { default as ApplicationService } from './services/applicationService/applicationService.js';
+export { default as PageResource } from './resources/pageResource/pageResource.js';
 /**
  * Components.
  */

@@ -1,8 +1,17 @@
+/**
+ * @typedef {import('./page.types').PageConfigType} PageConfigType
+ */
 import { ArpaElement } from '@arpadroid/ui';
 import { defineCustomElement } from '@arpadroid/tools';
 
 const html = String.raw;
 class Page extends ArpaElement {
+    /** @type {PageConfigType} */ // @ts-ignore
+    _config = this._config;
+    /**
+     * Returns the default config.
+     * @returns {PageConfigType}
+     */
     getDefaultConfig() {
         return super.getDefaultConfig({
             title: '',
@@ -12,9 +21,7 @@ class Page extends ArpaElement {
 
     getTemplate() {
         return html`<div class="page__layout" zone="layout">
-            <header class="page__header" zone="header">
-                {logo} {primaryNav} {headerRhs} {mobileNav}
-            </header>
+            <header class="page__header" zone="header">{logo} {primaryNav} {headerRhs} {mobileNav}</header>
             {messages}
             <div class="page__contentHeader">{title}</div>
             <div class="page__content" zone="content-frame">{lhsNav} {content} {rhsNav}</div>
@@ -92,6 +99,5 @@ class Page extends ArpaElement {
 }
 
 defineCustomElement('arpa-page', Page);
-
 
 export default Page;

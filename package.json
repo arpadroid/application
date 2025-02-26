@@ -2,11 +2,9 @@
     "name": "@arpadroid/application",
     "version": "0.0.1",
     "description": "Contains application services typical of any web based application",
-    "main": "dist/arpadroid-application.js",
-    "module": "dist/arpadroid-application.js",
+    "exports": "./dist/arpadroid-application.js",
     "type": "module",
-    "types": "./dist/types.d.ts",
-    "sideEffects": false,
+    "types": "./dist/@types/types.compiled.d.ts",
     "scripts": {
         "build": "node ./node_modules/@arpadroid/module/scripts/build-project.mjs --project=application --minify",
         "prepublish": "npm run build",

@@ -1,5 +1,9 @@
 const config = {
     deps: ['resources'],
-    buildTypes: false
+    buildTypes: true,
+    logo: `           ┓    • ┓        ┓•    •    
+  ┏┓┏┓┏┓┏┓┏┫┏┓┏┓┓┏┫  ┏┓┏┓┏┓┃┓┏┏┓╋┓┏┓┏┓
+  ┗┻┛ ┣┛┗┻┗┻┛ ┗┛┗┗┻  ┗┻┣┛┣┛┗┗┗┗┻┗┗┗┛┛┗
+------┛----------------┛-┛--------------`
 };
 export default config;

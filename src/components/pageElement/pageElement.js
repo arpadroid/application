@@ -7,7 +7,7 @@ class PageElement extends ArpaElement {
 
     _initialize() {
         /** @type {Page} */
-        this.page = this.closest('arpa-page, .page');
+        this.page = /** @type {Page} */ (this.closest('arpa-page, .page'));
     }
 }
 
