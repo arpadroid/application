@@ -8,7 +8,7 @@ import { within } from '@storybook/test';
 const html = String.raw;
 
 const PageStory = {
-    title: 'Page',
+    title: 'Application/Page',
     tags: [],
     args: {
         id: 'page'
