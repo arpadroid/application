@@ -1,6 +1,6 @@
 {
     "name": "@arpadroid/application",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Contains application services typical of any web based application",
     "exports": "./dist/arpadroid-application.js",
     "type": "module",
@@ -32,6 +32,7 @@
     },
     "homepage": "https://github.com/arpadroid/application#readme",
     "peerDependencies": {
+        "@arpadroid/module": "file:../module",
         "@arpadroid/tools": "file:../tools",
         "@arpadroid/ui": "file:../ui",
         "@arpadroid/services": "file:../services",
@@ -41,7 +42,6 @@
         "@arpadroid/i18n": "file:../i18n"
     },
     "devDependencies": {
-        "@arpadroid/module": "file:../module",
         "@babel/core": "^7.23.9",
         "@babel/plugin-syntax-import-assertions": "^7.23.3",
         "@babel/preset-env": "^7.23.9",
