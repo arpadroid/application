@@ -3,7 +3,7 @@
  * @typedef {import('@arpadroid/module/node_modules/@storybook/types').StepFunction} StepFunction
  * @typedef {import('./page.types.js').PageConfigType} PageConfigType
  */
-import { attrString } from '@arpadroid/tools'; // @ts-ignore
+import { attrString } from '@arpadroid/tools';
 import { within } from '@storybook/test';
 const html = String.raw;
 

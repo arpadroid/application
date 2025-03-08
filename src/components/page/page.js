@@ -6,7 +6,7 @@ import { defineCustomElement } from '@arpadroid/tools';
 
 const html = String.raw;
 class Page extends ArpaElement {
-    /** @type {PageConfigType} */ // @ts-ignore
+    /** @type {PageConfigType} */
     _config = this._config;
     /**
      * Returns the default config.

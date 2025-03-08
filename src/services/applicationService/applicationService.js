@@ -17,8 +17,6 @@ import CONSTANTS from '../../include/constants.js';
 export const Context = {};
 const html = String.raw;
 class ApplicationService {
-    /** @type {ApplicationConfigType} _config - Main configuration. */ // @ts-ignore
-    _config = this._config;
     /** @type {ApplicationConfigType} _defaultConfig - Default configuration. */
     _defaultConfig = {};
     /** @type {Promise<SettledResultType[]> | undefined} _promise - App promise. */
@@ -63,6 +61,7 @@ class ApplicationService {
      * @param {ApplicationConfigType} config - Configuration.
      */
     setConfig(config) {
+        /** @type {ApplicationConfigType} */
         this._config = mergeObjects(this.getDefaultConfig(), config);
         CONSTANTS.MODE = this._config.mode || 'development';
     }
@@ -72,7 +71,7 @@ class ApplicationService {
      */
     _initialize() {
         this._initializeServices();
-        const { id, appComponent } = this._config;
+        const { id, appComponent } = this._config || {};
         this.appComponent = renderNode(html`<${appComponent} id=${id}></${appComponent}>`);
     }
 
@@ -92,7 +91,7 @@ class ApplicationService {
     }
 
     _render() {
-        const container = this._config.container || document.body;
+        const container = this._config?.container || document.body;
         container.appendChild(this.appComponent);
     }
 
@@ -138,8 +137,8 @@ class ApplicationService {
     }
 
     _getPromises() {
-        const { fetchDbRoutes } = this._config;
-        const promises = [...(this._config.promises || []), this.appComponent._config.load];
+        const { fetchDbRoutes } = this._config || {};
+        const promises = [...(this._config?.promises || []), this.appComponent._config.load];
         if (Context?.user?.promise) {
             promises.push(Context.user.promise);
         }

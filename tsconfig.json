@@ -3,7 +3,13 @@
     "compilerOptions": {
         "rootDir": "./src",
         "outDir": "./.tmp/.types",
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "paths": {
+            "@storybook/test": ["./node_modules/@arpadroid/module/node_modules/@storybook/test"],
+            "@storybook/web-components": [
+                "./node_modules/@arpadroid/module/node_modules/@storybook/web-components"
+            ]
+        }
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.js", "./dist/@types"]
