@@ -5,7 +5,7 @@
         "outDir": "./.tmp/.types",
         "skipLibCheck": true,
         "paths": {
-            "@storybook/test": ["./node_modules/@arpadroid/module/node_modules/@storybook/test"],
+            "@storybook/test": ["./node_modules/@arpadroid/module/node_modules/@storybook/test/dist/index.d.ts"],
             "@storybook/web-components": [
                 "./node_modules/@arpadroid/module/node_modules/@storybook/web-components"
             ]
