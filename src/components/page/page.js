@@ -29,7 +29,9 @@ class Page extends ArpaElement {
                 mobileNav: { tag: 'mobile-nav' },
                 lhsNav: { tag: 'nav-list', id: 'lhs-nav' },
                 rhsNav: { tag: 'nav-list', id: 'rhs-nav' },
+                leftColumn: { canRender: true, tag: 'aside' },
                 content: { tag: 'page-content', attr: { role: 'main' } },
+                rightColumn: { tag: 'aside' },
                 footerNav: { tag: 'nav-list', id: 'footer-nav' },
                 footerContent: {},
                 messages: { tag: 'arpa-messages', id: 'notifications', canRender: true }
@@ -41,14 +43,21 @@ class Page extends ArpaElement {
     _getTemplate() {
         return html`<div class="arpaPage__layout" zone="layout">
             {header}
-            <div className="arpaPage__body" zone="layout-body">
+            <div class="arpaPage__body" zone="layout-body">
                 {lhsNav}
-                <div className="arpaPage__content" zone="layout-body">
+                <div class="arpaPage__body__frame">
                     {messages}
-                    <div class="arpaPage__content__header">{title}</div>
-                    <div class="arpaPage__content__body">{content}</div>
-                    <div class="arpaPage__content__footer">{contentFooter}</div>
+                    <div class="arpaPage__body__content">
+                        {leftColumn}
+                        <div class="arpaPage__content" zone="layout-body">
+                            <div class="arpaPage__content__header">{title}</div>
+                            <div class="arpaPage__content__body">{content}</div>
+                            <div class="arpaPage__content__footer">{contentFooter}</div>
+                        </div>
+                        {rightColumn}
+                    </div>
                 </div>
+
                 {rhsNav}
             </div>
             {footer}

@@ -1,3 +1,6 @@
+*.bundled.css
+*.compiled.d.ts
+*.min.css
 bundle-stats.html
 node_modules/
 dist/

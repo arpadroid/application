@@ -14,7 +14,7 @@ const PageStory = {
         id: 'page'
     },
     parameters: {
-        // layout: 'fullscreen'
+        layout: 'fullscreen'
     },
     getArgTypes: (category = 'Page Props') => {
         return {
@@ -89,6 +89,10 @@ export const Default = {
                     <nav-link link="/help">Help</nav-link>
                 </zone>
 
+                <zone name="leftColumn">
+                    Left column content
+                </zone>
+
                 <zone name="content">
                     Many cultures have their own mythical origins on the creation of music.[34][35] Specific
                     figures are sometimes credited with inventing music, such as Jubal in Christian
@@ -99,6 +103,10 @@ export const Default = {
                     are many stories relating to music's origins in Chinese mythology,[39][n 5] but the most
                     prominent is that of the musician Ling Lun, who—on the orders of the Yellow Emperor
                     (Huangdi)—invented bamboo flute by imitating the song of the mythical fenghuang birds.[40]
+                </zone>
+
+                <zone name="rightColumn">
+                    right column content
                 </zone>
 
                 <zone name="rhsNav">
@@ -117,6 +125,7 @@ export const Default = {
                     world, the first of which is Sumerian literature of Abu Salabikh (now Southern Iraq) of
                     c. 2600 BCE.[63]
                 </zone>
+                
             </arpa-page>
         `;
     }

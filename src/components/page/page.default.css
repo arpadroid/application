@@ -1,0 +1,67 @@
+:root {
+    --page-content-padding: 1rem;
+    --page-min-column-width: 200px;
+}
+
+.arpaPage {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.arpaPage__layout {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.arpaPage__header {
+    width: 100%;
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+}
+
+.arpaPage__primaryNav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    flex: 1 1 auto;
+    justify-content: center;
+    .navLink {
+        width: auto;
+    }
+}
+
+.arpaPage__leftColumn {
+    min-width: var(--page-min-column-width);
+    padding: var(--page-content-padding);
+}
+
+.arpaPage__rightColumn {
+    min-width: var(--page-min-column-width);
+    padding: var(--page-content-padding);
+}
+
+.arpaPage__body {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+}
+
+.arpaPage__body__content {
+    display: flex;
+    gap: 1rem;
+}
+
+.arpaPage__content {
+    padding: var(--page-content-padding);
+}
+
+.arpaPage__footer {
+    margin-top: auto;
+}
+
+.arpaPage__footerContent {
+    padding: var(--page-content-padding);
+}
