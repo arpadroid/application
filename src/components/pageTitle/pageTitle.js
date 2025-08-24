@@ -1,38 +1,42 @@
+/**
+ * @typedef {import('./pageTitle.types.js').PageTitleConfigType} PageTitleConfigType
+ */
 import { defineCustomElement } from '@arpadroid/tools';
 import PageElement from '../pageElement/pageElement.js';
 
 const html = String.raw;
 
 class PageTitle extends PageElement {
-    getTemplate() {
-        return html`{icon} {title} {iconRight}`;
-    }
-
-    getTemplateVars() {
-        return {
-            icon: this.renderIcon(),
-            title: this.renderTitle(),
-            iconRight: this.renderIconRight()
+    getDefaultConfig() {
+        console.log('hi page title');
+        /** @type {PageTitleConfigType} */
+        const config = {
+            className: 'pageTitle',
+            templateChildren: {
+                lhs: {},
+                icon: { tag: 'arpa-icon', content: () => this.getIcon() },
+                content: { tag: 'h1', content: () => this.getContent(), zoneName: 'page-title' },
+                iconRight: { tag: 'arpa-icon', content: () => this.getIconRight() },
+                rhs: {}
+            }
         };
+        return super.getDefaultConfig(config);
     }
 
-    renderIcon() {
-        if (!this.hasContent('icon')) return '';
-        return html`<arpa-icon class="pageTitle__icon">
-            ${this.page?.getProperty('title-icon') || ''}
-        </arpa-icon>`;
+    _getTemplate() {
+        return html`{lhs}{icon}{content}{iconRight}{rhs}`;
     }
 
-    renderTitle(title = this.page?.getProperty('title') || '') {
-        if (!this.page?.hasContent('title')) return '';
-        return html`<h1 class="pageTitle__content" zone="title">${title}</h1>`;
+    getIcon() {
+        return this.page?.getProperty('title-icon') || this.getProperty('icon') || '';
     }
 
-    renderIconRight() {
-        if (!this.hasContent('iconRight')) return '';
-        return html`<arpa-icon class="pageTitle__iconRight">
-            ${this.page?.getProperty('title-icon-right') || ''}
-        </arpa-icon>`;
+    getIconRight() {
+        return this.page?.getProperty('title-icon-right') || this.getProperty('icon-right') || '';
+    }
+
+    getContent() {
+        return this.page?.getProperty('title') || this.getProperty('content') || this._content || '';
     }
 }
 

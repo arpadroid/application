@@ -13,88 +13,73 @@ class Page extends ArpaElement {
      * @returns {PageConfigType}
      */
     getDefaultConfig() {
-        return super.getDefaultConfig({
+        /** @type {PageConfigType} */
+        const config = {
+            id: undefined,
             title: '',
-            className: 'pageComponent'
-        });
+            className: 'arpaPage',
+            logoLink: '/',
+            logo: 'Page logo',
+            templateChildren: {
+                logo: { tag: 'page-logo' },
+                title: { tag: 'page-title', canRender: true },
+                headerRhs: {},
+                primaryNav: { tag: 'primary-nav', id: 'primary-nav' },
+                // userNav: { tag: 'user-nav' },
+                mobileNav: { tag: 'mobile-nav' },
+                lhsNav: { tag: 'nav-list', id: 'lhs-nav' },
+                rhsNav: { tag: 'nav-list', id: 'rhs-nav' },
+                content: { tag: 'page-content', attr: { role: 'main' } },
+                footerNav: { tag: 'nav-list', id: 'footer-nav' },
+                footerContent: {},
+                messages: { tag: 'arpa-messages', id: 'notifications', canRender: true }
+            }
+        };
+        return super.getDefaultConfig(config);
     }
 
-    getTemplate() {
-        return html`<div class="page__layout" zone="layout">
-            <header class="page__header" zone="header">{logo} {primaryNav} {headerRhs} {mobileNav}</header>
-            {messages}
-            <div class="page__contentHeader">{title}</div>
-            <div class="page__content" zone="content-frame">{lhsNav} {content} {rhsNav}</div>
-            <footer class="page__footer" zone="footer"></footer>
+    _getTemplate() {
+        return html`<div class="arpaPage__layout" zone="layout">
+            {header}
+            <div className="arpaPage__body" zone="layout-body">
+                {lhsNav}
+                <div className="arpaPage__content" zone="layout-body">
+                    {messages}
+                    <div class="arpaPage__content__header">{title}</div>
+                    <div class="arpaPage__content__body">{content}</div>
+                    <div class="arpaPage__content__footer">{contentFooter}</div>
+                </div>
+                {rhsNav}
+            </div>
+            {footer}
         </div>`;
+    }
+
+    renderHeader() {
+        return html`<header class="arpaPage__header" zone="header">
+            {logo}{primaryNav}{headerRhs}{mobileNav}
+        </header>`;
+    }
+
+    renderFooter() {
+        return html`<footer class="arpaPage__footer" zone="footer">{footerContent}{footerNav}</footer>`;
+    }
+
+    renderMessages() {
+        return html`<arpa-messages id="notifications" class="page__messages" zone="notifications">
+            <info-message>This is a notification message</info-message>
+        </arpa-messages>`;
     }
 
     getTemplateVars() {
         return {
-            logo: this.renderLogo(),
-            title: this.renderTitle(),
-            primaryNav: this.renderPrimaryNav(),
-            headerRhs: this.renderHeaderRhs(),
-            mobileNav: this.renderMobileNav(),
-            lhsNav: this.renderLhsNav(),
-            content: this.renderContent(),
-            rhsNav: this.renderRhsNav(),
-            footerNav: this.renderFooterNav(),
-            messages: this.renderMessages()
+            header: this.renderHeader(),
+            footer: this.renderFooter()
         };
     }
 
-    renderMessages() {
-        return html`<arpa-messages
-            id="notifications"
-            class="page__messages"
-            zone="notifications"
-        ></arpa-messages>`;
-    }
-
-    renderLogo() {
-        if (!this.hasContent('logo')) return '';
-        return html`<page-logo class="page__logo" zone="logo"></page-logo>`;
-    }
-
-    renderTitle() {
-        if (!this.hasContent('title')) return '';
-        return html`<page-title class="page__title"></page-title>`;
-    }
-
-    renderHeaderRhs() {
-        if (!this.hasContent('header-rhs')) return '';
-        return html`<div class="page__headerRhs" zone="header-rhs"></div>`;
-    }
-
-    renderPrimaryNav() {
-        if (!this.hasContent('primary-nav')) return '';
-        return html`<nav-list class="page__primaryNav" zone="primary-nav"></nav-list>`;
-    }
-
     renderMobileNav() {
-        if (!this.hasContent('mobile-nav')) return '';
-        return html`<mobile-nav class="page__mobileNav" zone="mobile-nav"></mobile-nav>`;
-    }
-
-    renderLhsNav() {
-        if (!this.hasContent('lhs-nav')) return '';
-        return html`<nav-list class="page__lhsNav" zone="lhs-nav"></nav-list>`;
-    }
-
-    renderContent() {
-        if (!this.hasContent('content')) return '';
-        return html`<page-content role="main" class="page__content" zone="content"></page-content>`;
-    }
-
-    renderRhsNav() {
-        if (!this.hasContent('rhs-nav')) return '';
-        return html`<nav-list class="page__rhsNav" zone="rhs-nav"></nav-list>`;
-    }
-
-    renderFooterNav() {
-        if (!this.hasContent('footer-nav')) return '';
-        return html`<footer-nav class="page__footerNav" zone="footer-nav"></footer-nav>`;
+        return this.renderChild('mobileNav');
     }
 }
 

@@ -8,7 +8,7 @@ import { within } from '@storybook/test';
 const html = String.raw;
 
 const PageStory = {
-    title: 'Application/Page',
+    title: 'Application/Components/Page',
     tags: [],
     args: {
         id: 'page'
@@ -66,18 +66,57 @@ export const Default = {
     render: args => {
         return html`
             <arpa-page ${attrString(args)}>
-                <zone name="logo">Logo</zone>
-                <zone name="title">Title</zone>
-                <zone name="primary-nav">
+                <zone name="page-title">Test Title</zone>
+                <zone name="headerRhs">Header RHS</zone>
+                <zone name="primaryNav">
                     <nav-link link="/home">Home</nav-link>
-                    <nav-link link="/about">About</nav-link>
+                    <nav-link link="/about">
+                        About
+                        <zone name="submenu">
+                            <nav-link link="/about/mission">Mission</nav-link>
+                            <nav-link link="/about/team">Team</nav-link>
+                            <nav-link link="/about/company">Company</nav-link>
+                        </zone>
+                    </nav-link>
                     <nav-link link="/services">Services</nav-link>
                     <nav-link link="/blog">Blog</nav-link>
                     <nav-link link="/contact">Contact</nav-link>
                     <nav-link link="/faq">FAQ</nav-link>
                 </zone>
-                <zone name="content">Content</zone>
-                <zone name="footer">Footer Content</zone>
+                <zone name="lhsNav">
+                    <nav-link link="/settings">Settings</nav-link>
+                    <nav-link link="/profile">Profile</nav-link>
+                    <nav-link link="/help">Help</nav-link>
+                </zone>
+
+                <zone name="content">
+                    Many cultures have their own mythical origins on the creation of music.[34][35] Specific
+                    figures are sometimes credited with inventing music, such as Jubal in Christian
+                    mythology,[26] the legendary Shah Jamshid in Persian/Iranian mythology,[36] the goddess
+                    Saraswati in Hinduism,[37] and the muses in Ancient Greek mythology.[35] Some cultures
+                    credit multiple originators of music; ancient Egyptian mythology associates it with
+                    numerous deities, including Amun, Hathor, Isis and Osiris, but especially Ihy.[38] There
+                    are many stories relating to music's origins in Chinese mythology,[39][n 5] but the most
+                    prominent is that of the musician Ling Lun, who—on the orders of the Yellow Emperor
+                    (Huangdi)—invented bamboo flute by imitating the song of the mythical fenghuang birds.[40]
+                </zone>
+
+                <zone name="rhsNav">
+                    <nav-link link="/notifications">Notifications</nav-link>
+                    <nav-link link="/messages">Messages</nav-link>
+                    <nav-link link="/tasks">Tasks</nav-link>
+                </zone>
+                <zone name="footerNav">
+                    <nav-link link="/privacy">Privacy Policy</nav-link>
+                    <nav-link link="/terms">Terms of Service</nav-link>
+                    <nav-link link="/cookies">Cookie Policy</nav-link>
+                    <nav-link link="/help">Help</nav-link>
+                </zone>
+                <zone name="footerContent" zone="footer">
+                    Following the advent of writing, literate civilizations are termed part of the ancient
+                    world, the first of which is Sumerian literature of Abu Salabikh (now Southern Iraq) of
+                    c. 2600 BCE.[63]
+                </zone>
             </arpa-page>
         `;
     }
