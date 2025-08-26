@@ -1,6 +1,7 @@
 :root {
     --page-content-padding: 1rem;
     --page-min-column-width: 200px;
+    --page-padding: 1rem;
 }
 
 .arpaPage {
@@ -18,7 +19,7 @@
 .arpaPage__header {
     width: 100%;
     display: flex;
-    flex: 1 1 auto;
+    padding: var(--page-padding);
     align-items: center;
 }
 
@@ -47,6 +48,7 @@
     display: flex;
     flex-direction: row;
     flex: 1 1 auto;
+    padding: var(--page-padding);
 }
 
 .arpaPage__body__content {
@@ -60,8 +62,8 @@
 
 .arpaPage__footer {
     margin-top: auto;
+    padding: var(--page-padding);
 }
 
 .arpaPage__footerContent {
-    padding: var(--page-content-padding);
 }

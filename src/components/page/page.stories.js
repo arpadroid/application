@@ -67,7 +67,8 @@ export const Default = {
         return html`
             <arpa-page ${attrString(args)}>
                 <zone name="page-title">Test Title</zone>
-                <zone name="headerRhs">Header RHS</zone>
+                <zone name="headerRhs">RHS</zone>
+                <zone name="headerLhs">LHS</zone>
                 <zone name="primaryNav">
                     <nav-link link="/home">Home</nav-link>
                     <nav-link link="/about">
@@ -83,15 +84,20 @@ export const Default = {
                     <nav-link link="/contact">Contact</nav-link>
                     <nav-link link="/faq">FAQ</nav-link>
                 </zone>
+                <zone name="secondaryNav" el-icon="person">
+                    <nav-link link="/Profile">Profile</nav-link>
+                    <nav-link link="/Account">Account Settings</nav-link>
+                    <nav-link link="/Subscriptions">Subscriptions</nav-link>
+                    <nav-link link="/Help">Help</nav-link>
+                    <nav-link link="/Logout">Logout</nav-link>
+                </zone>
                 <zone name="lhsNav">
-                    <nav-link link="/settings">Settings</nav-link>
-                    <nav-link link="/profile">Profile</nav-link>
-                    <nav-link link="/help">Help</nav-link>
+                    <nav-link link="/Dashboard">Dashboard</nav-link>
+                    <nav-link link="/Settings">Settings</nav-link>
+                    <nav-link link="/Billing">Billing</nav-link>
                 </zone>
 
-                <zone name="leftColumn">
-                    Left column content
-                </zone>
+                <zone name="leftColumn"> Left column content </zone>
 
                 <zone name="content">
                     Many cultures have their own mythical origins on the creation of music.[34][35] Specific
@@ -105,9 +111,7 @@ export const Default = {
                     (Huangdi)—invented bamboo flute by imitating the song of the mythical fenghuang birds.[40]
                 </zone>
 
-                <zone name="rightColumn">
-                    right column content
-                </zone>
+                <zone name="rightColumn"> right column content </zone>
 
                 <zone name="rhsNav">
                     <nav-link link="/notifications">Notifications</nav-link>
@@ -125,7 +129,6 @@ export const Default = {
                     world, the first of which is Sumerian literature of Abu Salabikh (now Southern Iraq) of
                     c. 2600 BCE.[63]
                 </zone>
-                
             </arpa-page>
         `;
     }

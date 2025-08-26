@@ -24,11 +24,13 @@ class Page extends ArpaElement {
                 logo: { tag: 'page-logo' },
                 title: { tag: 'page-title', canRender: true },
                 headerRhs: {},
+                headerLhs: {},
                 primaryNav: { tag: 'primary-nav', id: 'primary-nav' },
+                secondaryNav: { tag: 'secondary-nav', id: 'secondary-nav'},
                 // userNav: { tag: 'user-nav' },
                 mobileNav: { tag: 'mobile-nav' },
-                lhsNav: { tag: 'nav-list', id: 'lhs-nav' },
-                rhsNav: { tag: 'nav-list', id: 'rhs-nav' },
+                lhsNav: { tag: 'side-nav', id: 'lhs-nav' },
+                rhsNav: { tag: 'side-nav', id: 'rhs-nav' },
                 leftColumn: { canRender: true, tag: 'aside' },
                 content: { tag: 'page-content', attr: { role: 'main' } },
                 rightColumn: { tag: 'aside' },
@@ -66,7 +68,7 @@ class Page extends ArpaElement {
 
     renderHeader() {
         return html`<header class="arpaPage__header" zone="header">
-            {logo}{primaryNav}{headerRhs}{mobileNav}
+            {logo}{headerLhs}{primaryNav}{headerRhs}{secondaryNav}{mobileNav}
         </header>`;
     }
 
