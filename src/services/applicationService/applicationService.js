@@ -92,7 +92,7 @@ class ApplicationService {
 
     _render() {
         const container = this._config?.container || document.body;
-        container.appendChild(this.appComponent);
+        this.appComponent && container.appendChild(this.appComponent);
     }
 
     _initializeServices() {
@@ -138,7 +138,8 @@ class ApplicationService {
 
     _getPromises() {
         const { fetchDbRoutes } = this._config || {};
-        const promises = [...(this._config?.promises || []), this.appComponent._config.load];
+        // @ts-ignore there is no app component yet.
+        const promises = [...(this._config?.promises || []), this.appComponent?._config?.load];
         if (Context?.user?.promise) {
             promises.push(Context.user.promise);
         }
