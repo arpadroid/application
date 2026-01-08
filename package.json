@@ -6,12 +6,10 @@
     "type": "module",
     "types": "./dist/@types/types.compiled.d.ts",
     "scripts": {
-        "build": "node ./node_modules/@arpadroid/module/scripts/build-project.mjs --project=application --minify",
-        "prepublish": "npm run build",
-        "test": "node ./node_modules/@arpadroid/module/scripts/test-project.mjs --project=application --storybook --jest --port=6016",
-        "test:coverage": "jest --coverage",
-        "storybook": "npm run build -- --storybook=6016 --watch",
-        "generate-docs": "jsdoc2md src/*.js > README.md"
+        "build": "arpadroid-build --minify",
+        "clean": "rm -rf ./dist ./node_modules ./package-lock.json",
+        "dev": "arpadroid-build --storybook=6016 --watch",
+        "test": "arpadroid-test --storybook --jest --port=6016"
     },
     "engines": {
         "node": ">=16.0.0"
