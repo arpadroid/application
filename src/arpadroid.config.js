@@ -1,6 +1,7 @@
 const config = {
     deps: ['resources'],
     buildTypes: true,
+    buildType: 'uiComponent',
     logo: `           ┓    • ┓        ┓•    •    
   ┏┓┏┓┏┓┏┓┏┫┏┓┏┓┓┏┫  ┏┓┏┓┏┓┃┓┏┏┓╋┓┏┓┏┓
   ┗┻┛ ┣┛┗┻┗┻┛ ┗┛┗┗┻  ┗┻┣┛┣┛┗┗┗┗┻┗┗┗┛┛┗

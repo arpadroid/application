@@ -7,7 +7,7 @@
 import { observerMixin, mergeObjects, dummySignal, dummyListener, renderNode } from '@arpadroid/tools';
 import { Router, UIService } from '@arpadroid/services';
 import { I18n } from '@arpadroid/i18n';
-import { MessageResource as Messages } from '@arpadroid/resources';
+import { Messages } from '@arpadroid/messages';
 import CONSTANTS from '../../include/constants.js';
 // import AppUserResource from '../../../user/resources/appUserResource/appUserResource.js';
 // import NotFoundPage from '../../pages/notFoundPage/notFoundPage.js';
