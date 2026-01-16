@@ -1,3 +1,4 @@
+storybook-static/
 *.bundled.css
 *.compiled.d.ts
 *.min.css
