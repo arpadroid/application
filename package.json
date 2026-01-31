@@ -41,7 +41,7 @@
         "@arpadroid/i18n": "file:../i18n"
     },
     "devDependencies": {
-        "@babel/core": "^7.23.9",
-        "@babel/preset-env": "^7.23.9"
+        "@babel/core": "^7.28.6",
+        "@babel/preset-env": "^7.28.6"
     }
 }
