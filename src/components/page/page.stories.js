@@ -1,12 +1,16 @@
 /**
  * @typedef {import('./page.js').default} Page
- * @typedef {import('@arpadroid/module/node_modules/@storybook/types').StepFunction} StepFunction
  * @typedef {import('./page.types.js').PageConfigType} PageConfigType
+ * @typedef {import('@storybook/web-components-vite').Meta} Meta
+ * @typedef {import('@storybook/web-components-vite').StoryObj} StoryObj
+ * @typedef {import('@storybook/web-components-vite').StoryContext} StoryContext
+ * @typedef {import('@storybook/web-components-vite').Args} Args
  */
 import { attrString } from '@arpadroid/tools';
-import { within } from '@storybook/test';
+import { within } from 'storybook/test';
 const html = String.raw;
 
+/** @type {Meta} */
 const PageStory = {
     title: 'Application/Components/Page',
     tags: [],
@@ -26,6 +30,7 @@ const PageStory = {
     }
 };
 
+/** @type {StoryObj} */
 export const Default = {
     name: 'Render',
     argTypes: PageStory.getArgTypes(),
@@ -50,20 +55,12 @@ export const Default = {
         pageNode?.promise && (await pageNode?.promise);
         return { canvas, pageNode };
     },
-    /**
-     * Plays the test scenario.
-     * @param {{ canvasElement: HTMLElement, step: StepFunction, args: Record<string, any> }} options
-     * @returns {Promise<void>}
-     */
-    play: async ({ canvasElement }) => {
+
+    play: async (/** @type {StoryContext} */ { canvasElement }) => {
         await Default.playSetup(canvasElement);
     },
-    /**
-     * Renders the page component.
-     * @param {PageConfigType} args
-     * @returns {string}
-     */
-    render: args => {
+
+    render: (/** @type {Args} */ args) => {
         return html`
             <arpa-page ${attrString(args)}>
                 <zone name="page-title">Test Title</zone>

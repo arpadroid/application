@@ -1,12 +1,16 @@
 /**
- * @typedef {import('@arpadroid/module/node_modules/@storybook/types').StepFunction} StepFunction
  * @typedef {import('./pageTitle.types').PageTitleConfigType} PageTitleConfigType
+ * @typedef {import('@storybook/web-components-vite').Meta} Meta
+ * @typedef {import('@storybook/web-components-vite').StoryObj} StoryObj
+ * @typedef {import('@storybook/web-components-vite').StoryContext} StoryContext
+ * @typedef {import('@storybook/web-components-vite').Args} Args
  */
 import { attrString } from '@arpadroid/tools';
-import { within } from '@storybook/test';
+import { within } from 'storybook/test';
 import PageTitle from './pageTitle';
 const html = String.raw;
 
+/** @type {Meta} */
 const PageStory = {
     title: 'Application/Components/Page/Title',
     tags: [],
@@ -40,6 +44,7 @@ const PageStory = {
     }
 };
 
+/** @type {StoryObj} */
 export const Default = {
     name: 'Render',
     argTypes: PageStory.getArgTypes(),
