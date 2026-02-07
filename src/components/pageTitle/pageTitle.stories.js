@@ -71,7 +71,6 @@ export const Default = {
         const pageTitleNode = canvasElement.querySelector('page-title');
 
         pageTitleNode?.promise && (await pageTitleNode?.promise);
-        console.log('pageTitleNode', pageTitleNode);
         return { canvas, pageTitleNode };
     },
     /**

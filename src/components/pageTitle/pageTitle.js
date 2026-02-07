@@ -8,7 +8,6 @@ const html = String.raw;
 
 class PageTitle extends PageElement {
     getDefaultConfig() {
-        console.log('hi page title');
         /** @type {PageTitleConfigType} */
         const config = {
             className: 'pageTitle',
