@@ -35,6 +35,7 @@
         "@arpadroid/ui": "file:../ui",
         "@arpadroid/services": "file:../services",
         "@arpadroid/resources": "file:../resources",
+        "@arpadroid/context": "file:../context",
         "@arpadroid/navigation": "file:../navigation",
         "@arpadroid/messages": "file:../messages",
         "@arpadroid/i18n": "file:../i18n"
