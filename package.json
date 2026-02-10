@@ -7,9 +7,9 @@
     "types": "./dist/@types/types.compiled.d.ts",
     "scripts": {
         "build": "arpadroid-build --minify",
-        "clean": "rm -rf ./dist ./node_modules ./package-lock.json",
-        "dev": "arpadroid-build --storybook=6016 --watch",
-        "test": "arpadroid-test --storybook --jest --port=6016"
+        "clean": "arpadroid-clean",
+        "dev": "arpadroid-build --storybook --watch",
+        "test": "arpadroid-test --storybook --jest"
     },
     "engines": {
         "node": ">=16.0.0"
