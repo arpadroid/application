@@ -9,7 +9,10 @@
         "build": "arpadroid-build --minify",
         "clean": "arpadroid-clean",
         "dev": "arpadroid-build --storybook --watch",
-        "test": "arpadroid-test --storybook --jest"
+        "test": "arpadroid-test --storybook --jest",
+        "t": "npm run test -- --slim",
+        "check:types": "arpadroid-check-types",
+        "initialize": "arpadroid-initialize"
     },
     "engines": {
         "node": ">=16.0.0"
