@@ -1,7 +1,8 @@
 import { Router, UIService } from '@arpadroid/services';
-import { MessageResource } from '@arpadroid/resources';
+import { ListResource } from '@arpadroid/resources';
 import ApplicationService from './applicationService.js';
 import { I18n } from '@arpadroid/i18n';
+import { Messages } from '@arpadroid/messages';
 
 export interface ApplicationConfigType {
     appComponent?: string;
@@ -18,7 +19,7 @@ export interface ContextInterface {
     user?: any;
     application?: ApplicationService;
     i18n?: I18n;
-    messages?: MessageResource;
+    messages?: ListResource;
     router?: Router;
     uiService?: UIService;
 }
@@ -26,7 +27,7 @@ export interface ContextInterface {
 export interface ApplicationServicesConfigType {
     user?: any;
     i18n?: typeof I18n;
-    messages?: typeof MessageResource;
+    messages?: typeof Messages;
     router?: typeof Router;
     uiService?: typeof UIService;
 }

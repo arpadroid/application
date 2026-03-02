@@ -2,7 +2,12 @@
     "name": "@arpadroid/application",
     "version": "1.0.0",
     "description": "Contains application services typical of any web based application",
-    "exports": "./dist/arpadroid-application.js",
+    "exports": {
+        ".": {
+            "types": "./dist/@types/types.compiled.d.ts",
+            "import": "./src/arpadroid-application.js"
+        }
+    },
     "type": "module",
     "types": "./dist/@types/types.compiled.d.ts",
     "scripts": {
@@ -41,7 +46,9 @@
         "@arpadroid/context": "file:../context",
         "@arpadroid/navigation": "file:../navigation",
         "@arpadroid/messages": "file:../messages",
-        "@arpadroid/i18n": "file:../i18n"
+        "@arpadroid/i18n": "file:../i18n",
+        "@arpadroid/lists": "file:../lists",
+        "@arpadroid/list-manager": "file:../list-manager"
     },
     "devDependencies": {
         "@babel/core": "^7.28.6",
