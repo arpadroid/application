@@ -1,17 +1,16 @@
-// @ts-ignore
+import type { Preview } from '@storybook/web-components-vite';
 import { bootstrapDecorator } from '@arpadroid/module/storybook/decorators';
 import { setService } from '@arpadroid/context';
 import { Router, APIService } from '@arpadroid/services';
 import { mergeObjects } from '@arpadroid/tools';
 import defaultConfig from '@arpadroid/module/storybook/preview';
-/** @type { import('@storybook/web-components-vite').Preview } */
-const config = mergeObjects(
+
+const config: Preview = mergeObjects(
     defaultConfig,
     {
         decorators: [
             bootstrapDecorator(() => {
-                // @ts-ignore
-                setService('router', new Router()); // @ts-ignore
+                setService('router', new Router());
                 setService('apiService', APIService);
             })
         ]
