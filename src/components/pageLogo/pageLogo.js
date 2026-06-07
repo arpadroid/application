@@ -18,7 +18,7 @@ class PageLogo extends PageElement {
             content += html`<arpa-image
                 className="pageLogo__image"
                 src="${logoImage}"
-                alt="${this.getProperty('text')}"
+                alt="${this.getProp('text')}"
             ></arpa-image>`;
         }
         const logoLink = this.getLogoLink();
@@ -30,15 +30,15 @@ class PageLogo extends PageElement {
     }
 
     getLogoText() {
-        return this.page?._config?.logo || this.getProperty('text') || '';
+        return this.page?._config?.logo || this.getProp('text') || '';
     }
 
     getLogoImage() {
-        return this.page?._config?.logoImage || this.getProperty('image');
+        return this.page?._config?.logoImage || this.getProp('image');
     }
 
     getLogoLink() {
-        return this.page?._config?.logoLink || this.getProperty('link');
+        return this.page?._config?.logoLink || this.getProp('link');
     }
 }
 

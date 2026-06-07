@@ -27,15 +27,15 @@ class PageTitle extends PageElement {
     }
 
     getIcon() {
-        return this.page?.getProperty('title-icon') || this.getProperty('icon') || '';
+        return this.page?.getProp('title-icon') || this.getProp('icon') || '';
     }
 
     getIconRight() {
-        return this.page?.getProperty('title-icon-right') || this.getProperty('icon-right') || '';
+        return this.page?.getProp('title-icon-right') || this.getProp('icon-right') || '';
     }
 
     getContent() {
-        return this.page?.getProperty('title') || this.getProperty('content') || this._content || '';
+        return this.page?.getProp('title') || this.getProp('content') || this._content || '';
     }
 }
 
