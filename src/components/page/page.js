@@ -42,7 +42,7 @@ class Page extends ArpaElement {
         return super.getDefaultConfig(config);
     }
 
-    _getTemplate() {
+    $renderTemplate() {
         return html`<div class="arpaPage__layout" zone="layout">
             {header}
             <div class="arpaPage__body" zone="layout-body">

@@ -22,7 +22,7 @@ class PageTitle extends PageElement {
         return super.getDefaultConfig(config);
     }
 
-    _getTemplate() {
+    $renderTemplate() {
         return html`{lhs}{icon}{content}{iconRight}{rhs}`;
     }
 

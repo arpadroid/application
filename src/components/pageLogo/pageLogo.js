@@ -10,7 +10,7 @@ class PageLogo extends PageElement {
         });
     }
 
-    _getTemplate() {
+    $renderTemplate() {
         let content = this.getLogoText();
 
         const logoImage = this.getLogoImage();

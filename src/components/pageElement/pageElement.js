@@ -4,7 +4,7 @@
 import { ArpaElement } from '@arpadroid/ui';
 
 class PageElement extends ArpaElement {
-    _initialize() {
+    $initialize() {
         this._initializePage();
     }
     
@@ -14,7 +14,7 @@ class PageElement extends ArpaElement {
         return this.page;
     }
 
-    async _initializeNodes() {
+    async $initializeNodes() {
         return true;
     }
 }
