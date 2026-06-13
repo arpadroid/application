@@ -11,7 +11,7 @@ class PageTitle extends PageElement {
         /** @type {PageTitleConfigType} */
         const config = {
             className: 'pageTitle',
-            templateChildren: {
+            nodesConfig: {
                 lhs: {},
                 icon: { tag: 'arpa-icon', content: () => this.getIcon() },
                 content: { tag: 'h1', content: () => this.getContent(), zoneName: 'page-title' },

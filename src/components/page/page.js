@@ -20,7 +20,7 @@ class Page extends ArpaElement {
             className: 'arpaPage',
             logoLink: '/',
             logo: 'Page logo',
-            templateChildren: {
+            nodesConfig: {
                 logo: { tag: 'page-logo' },
                 title: { tag: 'page-title', canRender: true },
                 headerRhs: {},
