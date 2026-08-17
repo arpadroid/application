@@ -51,7 +51,6 @@
         "@arpadroid/list-manager": "file:../list-manager"
     },
     "devDependencies": {
-        "@babel/core": "^7.28.6",
-        "@babel/preset-env": "^7.28.6"
+        "@babel/preset-env": "^8.0.2"
     }
 }
