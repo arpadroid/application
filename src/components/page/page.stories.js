@@ -63,18 +63,20 @@ export const Default = {
     render: args => {
         return html`
             <arpa-page ${attrString(args)}>
-                <arpa-zone name="page-title">Test Title</arpa-zone>
+                <!-- <arpa-zone name="page-title">Test Title</arpa-zone> -->
                 <arpa-zone name="headerRhs">RHS</arpa-zone>
                 <arpa-zone name="headerLhs">LHS</arpa-zone>
                 <arpa-zone name="primaryNav">
                     <nav-link link="/home">Home</nav-link>
                     <nav-link link="/about">
                         About
+                        <!--
                         <arpa-zone name="submenu">
                             <nav-link link="/about/mission">Mission</nav-link>
                             <nav-link link="/about/team">Team</nav-link>
                             <nav-link link="/about/company">Company</nav-link>
                         </arpa-zone>
+                        -->
                     </nav-link>
                     <nav-link link="/services">Services</nav-link>
                     <nav-link link="/blog">Blog</nav-link>
@@ -82,6 +84,7 @@ export const Default = {
                     <nav-link link="/faq">FAQ</nav-link>
                 </arpa-zone>
                 <arpa-zone name="secondaryNav" icon="person">
+                    <!-- 
                     <arpa-zone name="nav">
                         <nav-link link="/Profile">Profile</nav-link>
                         <nav-link link="/Account">Account Settings</nav-link>
@@ -89,6 +92,7 @@ export const Default = {
                         <nav-link link="/Help">Help</nav-link>
                         <nav-link link="/Logout">Logout</nav-link>
                     </arpa-zone>
+                    -->
                 </arpa-zone>
                 <arpa-zone name="lhsNav">
                     <nav-link link="/Dashboard" icon="dashboard">Dashboard</nav-link>
@@ -109,7 +113,7 @@ export const Default = {
                 by imitating the song of the mythical fenghuang birds.[40]
 
                 <arpa-zone name="rightColumn"> right column content </arpa-zone>
-
+                <!-- 
                 <arpa-zone name="rhsNav">
                     <arpa-zone name="nav">
                         <nav-link link="/notifications">Notifications</nav-link>
@@ -117,6 +121,7 @@ export const Default = {
                         <nav-link link="/tasks">Tasks</nav-link>
                     </arpa-zone>
                 </arpa-zone>
+                -->
                 <arpa-zone name="footerNav">
                     <nav-link link="/privacy">Privacy Policy</nav-link>
                     <nav-link link="/terms">Terms of Service</nav-link>
