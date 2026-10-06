@@ -1,6 +1,6 @@
 :root {
     --page-content-padding: 1rem;
-    --page-min-column-width: 200px;
+    --page-min-column-width: 12.5rem;
     --page-padding: 1rem;
 }
 
@@ -12,23 +12,24 @@
 
 .arpaPage__layout {
     display: flex;
-    flex-direction: column;
     flex: 1 1 auto;
+    flex-direction: column;
 }
 
 .arpaPage__header {
-    width: 100%;
     display: flex;
-    padding: var(--page-padding);
     align-items: center;
+    width: 100%;
+    padding: var(--page-padding);
 }
 
 .arpaPage__primaryNav {
     display: flex;
+    flex: 1 1 auto;
     flex-wrap: wrap;
     gap: 1rem;
-    flex: 1 1 auto;
     justify-content: center;
+
     .navLink {
         width: auto;
     }
@@ -46,12 +47,12 @@
 
 .arpaPage__body {
     display: flex;
-    flex-direction: row;
     flex: 1 1 auto;
+    flex-direction: row;
     padding: var(--page-padding);
 }
 
-.arpaPage__body__content {
+.arpaPage__bodyLayout {
     display: flex;
     gap: 1rem;
 }
@@ -61,8 +62,8 @@
 }
 
 .arpaPage__footer {
-    margin-top: auto;
     padding: var(--page-padding);
+    margin-top: auto;
 }
 
 .arpaPage__footerContent {
